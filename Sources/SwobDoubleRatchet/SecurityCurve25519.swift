@@ -17,13 +17,13 @@ public class SecurityCurve25519 {
         case KeychainFailedToRead
     }
 
-    public static func generateKeyPair(keystoreAlias: String? = nil) throws ->
+    public static func generateKeyPair() throws ->
     Curve25519.KeyAgreement.PrivateKey {
         // After careful consideration - this function is useless
         return Curve25519.KeyAgreement.PrivateKey()
     }
     
-     public static func calculateSharedSecret( privateKey: Curve25519.KeyAgreement.PrivateKey,
+     public static func calculateSharedSecret(privateKey: Curve25519.KeyAgreement.PrivateKey,
                                               publicKey: Curve25519.KeyAgreement.PublicKey) throws -> SymmetricKey {
         do {
             let sharedSecret = try privateKey.sharedSecretFromKeyAgreement(with: publicKey)

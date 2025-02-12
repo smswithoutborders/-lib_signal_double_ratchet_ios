@@ -161,7 +161,7 @@ struct smswithoutborders_libsig_doubleratchet_Test {
         var clientPublishPubKey: String
 
         do {
-            clientPublishPrivateKey = try SecurityCurve25519.generateKeyPair(keystoreAlias: nil)
+            clientPublishPrivateKey = try SecurityCurve25519.generateKeyPair()
             clientPublishPubKey = clientPublishPrivateKey!.publicKey.rawRepresentation.base64EncodedString()
             print(clientPublishPubKey)
             
