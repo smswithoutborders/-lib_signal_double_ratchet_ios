@@ -10,7 +10,7 @@ import CryptoKit
 import CryptoSwift
 
 public class RatchetProtocols {
-    static func DHRatchet(state: States, header: HEADERS, keystoreAlias: String? = nil) throws {
+    static func DHRatchet(state: States, header: HEADERS) throws {
         state.PN = state.Ns
         state.Ns = 0
         state.Nr = 0
@@ -20,14 +20,14 @@ public class RatchetProtocols {
             return Array(data)
         }
         (state.RK, state.CKr) = try KDF_RK(rk: state.RK, dh: sharedSecret)
-        state.DHs = try GENERATE_DH(keystoreAlias: keystoreAlias)
+        state.DHs = try GENERATE_DH()
         sharedSecret = try DH(privateKey: state.DHs!, peerPublicKey: state.DHr!).withUnsafeBytes { data in
             return Array(data)
         }
         (state.RK, state.CKs) = try KDF_RK(rk: state.RK, dh: sharedSecret)
     }
 
-    static func GENERATE_DH(keystoreAlias: String? = nil) throws -> Curve25519.KeyAgreement.PrivateKey {
+    static func GENERATE_DH() throws -> Curve25519.KeyAgreement.PrivateKey {
         let privateKey = try SecurityCurve25519.generateKeyPair()
         return privateKey
     }
